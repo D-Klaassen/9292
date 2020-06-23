@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TestApiController@index')->name('testApi');
+Route::post('/', 'TestApiController@index')->name('postApi');
+
+
