@@ -1,104 +1,108 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
+@section('content')
 
-    <title>Laravel</title>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/12c685824a.js" crossorigin="anonymous"></script>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-</head>
-<body>
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
-            @endauth
-        </div>
+    @if($errors->any())
+        <h4>{{$errors->first()}}</h4>
     @endif
-</div>
 
-<div class="content">
-    <div class="search-container">
-        <form action="{{ route('postApi') }}" method="post">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
+    <div class="content">
+        <div class="search-container">
+            <form autocomplete="off" id="stationList" action="{{ route('DeparturesAndArrivals') }}"
+                  method="post">
+                @csrf
+                <div class="autocomplete">
+                    <input id="searchStation" type="text" placeholder="searchStation" name="searchStation">
+                </div>
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+
+
+            <script>
+                const searchStation = $('#searchStation')
+            </script>
+
+            @include('includes.dropDownStationList')
+
+        </div>
+
+
+        <script>
+
+
+            {{--            let ditIsStom = {!! $stationInformationJson !!}--}}
+
+
+
+
+            // const searchBar = $('#searchBar');
+            // let allStations = []
+
+
+            {{--            // console.log(searchBar);--}}
+
+            // searchBar.keyup(function (e) {
+            //     const searchString = e.target.value.toLowerCase().replace(/[\u0300-\u036f]/g, '');
+            //     let filteredStations = allStations.filter(function (station) {
+            //         let formatString = station.namen.lang.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+            //         let string = formatString.includes(searchString);
+            //         return string
+            //     });
+            //     displayStations(filteredStations);
+            // });
+
+
+
+            {{--let stationList = $('#stationList');--}}
+            {{--const displayStations = (stations) => {--}}
+            {{--    const htmlString = stations--}}
+            {{--        .map((station) => {--}}
+            {{--             $('#hiddenStationName').text(station.namen.lang)--}}
+            {{--            return `--}}
+            {{--                    <input type="text" placeholder="Search.." name="searchBar" value="${station.namen.lang}">--}}
+            {{--                    <input type="hidden" placeholder="Search.." name="searchBar" value="${station.UICCode}">`--}}
+
+            {{--            return `<li style="width: 100px;">--}}
+            {{--                <a href="{{ route('departuresAndArrivals', ['stationName' => 1, 'stationId' => 1]) }}">--}}
+            {{--                    <p style="width: 200px;">${station.namen.lang}</p>--}}
+            {{--                </a>--}}
+            {{--            </li>`;--}}
+            {{--        })--}}
+            {{--        .join('');--}}
+            {{--    stationList.html('<input id="searchBar" type="text" placeholder="Search.." name="searchBar">\n' +--}}
+            {{--        '             <button type="submit"><i class="fa fa-search"></i></button>' + htmlString);--}}
+            {{--}--}}
+
+
+            // ajax call om alle stations binnen te halen dit was niet meer nodig er wordt
+            // via php http request gedaan
+            {{--            $(document).ready(function () {--}}
+            {{--                $(function () {--}}
+            {{--                    var params = {--}}
+            {{--                        // Request parameters--}}
+            {{--                    };--}}
+            {{--                    $.ajax({--}}
+            {{--                        url: 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?' + $.param(params),--}}
+            {{--                        beforeSend: function (xhrObj) {--}}
+            {{--                            // Request headers--}}
+            {{--                            xhrObj.setRequestHeader('Ocp-Apim-Subscription-Key', '37e6d61918964611b3911fad92a25290');--}}
+            {{--                        },--}}
+            {{--                        type: 'GET',--}}
+            {{--                        data: '{body}',--}}
+            {{--                    })--}}
+            {{--                        .done(function (data) {--}}
+            {{--                            displayStations(data.payload)--}}
+            {{--                            allStations = data.payload;--}}
+            {{--                            // $.map(allStations, function(i) {--}}
+            {{--                            //     $('#stationList').append('<li>' + i.namen.lang + '</li>')--}}
+            {{--                            // });--}}
+            {{--                        })--}}
+            {{--                        .fail(function () {--}}
+            {{--                            alert("er is iets fout gegaan");--}}
+            {{--                        });--}}
+            {{--                });--}}
+            {{--            });--}}
+        </script>
     </div>
 
-    <ul id="stationList">
-    </ul>
+@endsection
 
-
-    <script>
-
-
-        const stationList = $('#stationList')
-
-        $(document).ready(function () {
-            $(function () {
-                var params = {
-                    // Request parameters
-                };
-                $.ajax({
-                    url: 'https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/stations?' + $.param(params),
-                    beforeSend: function (xhrObj) {
-                        // Request headers
-                        xhrObj.setRequestHeader('Ocp-Apim-Subscription-Key', '37e6d61918964611b3911fad92a25290');
-                    },
-                    type: 'GET',
-                    data: '{body}',
-                })
-                    .done(function (data) {
-                        $.map(data.payload, function(i) {
-                            $('#stationList').append('<li>' + i.namen.lang + '</li>')
-                        });
-                    })
-                    .fail(function () {
-                        alert("er is iets fout gegaan");
-                    });
-            });
-        });
-
-
-
-
-    </script>
-
-
-    <div class="title m-b-md">
-        {{--        @foreach($allStations as $allStationDetails)--}}
-        {{--            @dd($allStations)--}}
-        {{--            <li>{{ $allStationDetails }}</li>--}}
-        {{--        @endforeach--}}
-    </div>
-
-    {{--    <script>--}}
-    {{--        let rest = [{{ }}];--}}
-    {{--        let reeee = rest.find(a => a.includes('ber'));--}}
-    {{--        console.log(reeee)--}}
-    {{--    </script>--}}
-
-
-</div>
-
-
-<footer>
-
-
-    @include('foot')
-</footer>
-</body>
-</html>

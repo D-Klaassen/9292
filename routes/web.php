@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'TestApiController@index')->name('testApi');
-Route::post('/', 'TestApiController@index')->name('postApi');
+//Route::post('/', 'TestApiController@index')->name('postApi');
+
+
+Route::post('/station', 'DepartureAndArrivalController@index')->name('DeparturesAndArrivals');
+
+Route::get('/station', 'DepartureAndArrivalController@getError')->name('DeparturesAndArrivals');
+
+
+Route::post('/routePlanner', 'DepartureAndArrivalController@planRoute')->name('planRoute');
 
 
