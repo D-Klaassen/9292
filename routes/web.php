@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'TestApiController@index')->name('testApi');
-//Route::post('/', 'TestApiController@index')->name('postApi');
+Route::get('/', 'ContentController@index')->name('testApi');
+//Route::post('/', 'ContentController@index')->name('postApi');
 
 
 Route::post('/station', 'DepartureAndArrivalController@index')->name('DeparturesAndArrivals');

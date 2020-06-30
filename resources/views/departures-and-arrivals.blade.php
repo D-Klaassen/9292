@@ -6,10 +6,6 @@
         <h2>dit is je station: {{ $stationName }}</h2>
     </div>
 
-    <ul>
-
-    </ul>
-
     <div class="d-flex">
         <div>
             <h2>dit zijn de treinen die aankomen</h2>
@@ -43,27 +39,6 @@
                 <input type="hidden" value="{{ $stationUICCode }}" name="fromStationId" id="fromStationId">
 
                 <button type="submit"><i class="fa fa-search"></i></button>
-
-                {{--                @foreach($stationInformationJson as $stationInformationJsonDetails)--}}
-
-                {{--                    <input type="hidden" value="{{ $stationInformationJsonDetails['namen']['lang'] }}" name="searchBar">--}}
-                {{--                    <input type="hidden" value="{{ $stationInformationJsonDetails['UICCode'] }}" name="{{ $stationInformationJsonDetails['UICCode'] }}">--}}
-
-
-
-
-                {{--                @endforeach--}}
-
-
-                {{--                @foreach($stationInformationJson as $stationInformationJsonDetails)--}}
-                {{--                    @dd($stationInformationJsonDetails)--}}
-                {{--                    <input id="searchBar" type="text" name="station" value="$stationInformationJsonDetails">--}}
-
-                {{--                @endforeach--}}
-
-                {{--            <input type="text" id="hiddenStationName" value="">--}}
-                {{--            <input type="text" id="hiddenStationUicId" value="${station.namen.lang}">--}}
-                {{--            <input type="text">--}}
             </form>
         </div>
     </div>
@@ -73,7 +48,6 @@
 
         const arrivalList = $('#arrivalList')
         const departureList = $('#departureList')
-        // let arrivalOrDeparture = 'arrivals'
 
         $(document).ready(function () {
             $(function () {
@@ -93,10 +67,6 @@
                     .done(function (data) {
                         let allArrivals = data.payload.arrivals;
                         displayArrivals(allArrivals)
-                        // $.map(allArrivals, function(i) {
-                        //     console.log(i.name)
-                        //     $('#arrivalList').append('<li>' + i + '</li>')
-                        // });
                     })
                     .fail(function () {
                         alert("er is iets fout gegaan");
@@ -162,14 +132,10 @@
                 .join('');
             departureList.append(htmlString);
         };
-
-
     </script>
 
     <script>
         const searchStation = $('#searchStation')
     </script>
     @include('includes.dropDownStationList')
-
 @endsection
-

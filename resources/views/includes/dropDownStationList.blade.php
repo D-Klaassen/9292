@@ -1,4 +1,6 @@
 <script>
+    // deze heeft een element met een id nodig: #searchStation
+    // deze een lijst nodig van alle informatie van een station (vanuit de controller) $stationInformationJson
     function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
@@ -28,7 +30,8 @@
                     b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
                     /*insert a input field that will hold the current array item's value:*/
-                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.innerHTML += '<input type="hidden" value="' + arr[i] + '">';
+                    console.log(b)
                     /*execute a function when someone clicks on the item value (DIV element):*/
                     b.addEventListener("click", function (e) {
                         /*insert the value for the autocomplete text field:*/
