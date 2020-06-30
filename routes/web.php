@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ContentController@index')->name('home');
+
+
+Route::post('/station', 'DepartureAndArrivalController@index')->name('DeparturesAndArrivals');
+
+
+Route::post('/routePlanner', 'DepartureAndArrivalController@planRoute')->name('planRoute');
+
+
