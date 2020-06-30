@@ -59,7 +59,7 @@ dit om de scss en js te compilen (wanneer dit gecompiled is vast  druk op ctrl +
 </textarea>
 
 
--Run `php artisan key:generate`
+- Run `php artisan key:generate`
 dit is om de key in de env file te genereren
 
 verander de permissies van 2 bestanden, de bootstrap en de storage file door dit te runnen: 
