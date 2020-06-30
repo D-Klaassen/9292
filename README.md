@@ -5,7 +5,7 @@
 dit om de scss en js te compilen (wanneer dit gecompiled is vast  druk op ctrl + c om dit te stoppen
 - Maak van de .env.example de .env met deze info
 
-APP_NAME=Laravel
+`APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=
 APP_DEBUG=true
@@ -50,7 +50,7 @@ PUSHER_APP_SECRET=
 PUSHER_APP_CLUSTER=mt1
 
 MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"`
 
 -Run `php artisan key:generate`
 dit is om de key in de env file te genereren
