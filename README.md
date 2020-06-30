@@ -1,3 +1,5 @@
+<h1>dit is de instalatie guide</h1>
+
 - Run `composer install`
 - Run `npm install`
 - Run `npm audit fix`
