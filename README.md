@@ -7,7 +7,6 @@
 dit om de scss en js te compilen (wanneer dit gecompiled is vast  druk op ctrl + c om dit te stoppen
 - Maak van de .env.example de .env met deze info
 
-<textarea>
     
     APP_NAME=Laravel
     APP_ENV=local
@@ -56,7 +55,6 @@ dit om de scss en js te compilen (wanneer dit gecompiled is vast  druk op ctrl +
     MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
     MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     
-</textarea>
 
 
 -Run `php artisan key:generate`
