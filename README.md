@@ -7,7 +7,7 @@
 dit om de scss en js te compilen (wanneer dit gecompiled is vast  druk op ctrl + c om dit te stoppen
 - Maak van de .env.example de .env met deze info
 
-<textarea>
+//<textarea>
     
     APP_NAME=Laravel
     APP_ENV=local
