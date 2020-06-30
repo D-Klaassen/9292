@@ -1,9 +1,10 @@
 <h1>dit is de installatie guide</h1>
 
-- Run `composer install`
 - Run `npm install`
 - Run `npm audit fix`
 - Run `npm run watch`
+- Run `composer install`
+
 dit om de scss en js te compilen (wanneer dit gecompiled is vast  druk op ctrl + c om dit te stoppen
 - Maak van de .env.example de .env met deze info
 
