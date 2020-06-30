@@ -43,7 +43,7 @@ class DepartureAndArrivalController extends Controller
                     return Redirect()->route('home')->withErrors('je bent al op dit station');
                 }
             } else {
-                return Redirect()->route('home')->withErrors('vul een bestaant station in');
+                return Redirect()->route('home')->withErrors('vul een bestaand station in');
             }
         } else {
             return Redirect()->route('home')->withErrors('Je moet een bestaand station invullen');
