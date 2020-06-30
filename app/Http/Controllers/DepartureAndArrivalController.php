@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\Console\Input\Input;
 
 
 class DepartureAndArrivalController extends Controller
@@ -18,7 +19,7 @@ class DepartureAndArrivalController extends Controller
             return Redirect::back()->withErrors('Je moet een bestaand station invullen');
         }
         $stationInformationJson = $this->getStationInformation();
-        return view('departures-and-arrivals')->with(['stationName' => $stationName, 'stationUICCode' => $UICCode, 'stationInformationJson' => $stationInformationJson]);
+        return view('departure-and-arrivals')->with(['stationName' => $stationName, 'stationUICCode' => $UICCode, 'stationInformationJson' => $stationInformationJson]);
     }
 
     public function planRoute()
@@ -26,29 +27,27 @@ class DepartureAndArrivalController extends Controller
         if (array_key_exists('searchStation', $_POST)) {
             if ($this->getUICCode($_POST['searchStation']) !== 1) {
                 $UICCode = $this->getUICCode($_POST['searchStation']);
-                $allRoutes = $this->RoutePlanner($_POST['fromStationId'], $UICCode);
-                $oneRoute = array();
-                foreach ($allRoutes as $route) {
-                    $stringRidePrice = substr_replace($route['productFare']['priceInCents'], ',', -2, 0);
-                    array_push($oneRoute, [
-                        'departFrom' => $route['legs'][0]['origin']['name'],
-                        'transfers' => $route['legs'],
-                        'totalPrice' => $stringRidePrice,
-                    ]);
-                }
-                foreach ($oneRoute as $oneRouteDetails) {
-                    foreach ($oneRouteDetails['transfers'] as $transferDetails) {
-
+                if($UICCode !== $_POST['fromStationId']) {
+                    $allRoutes = $this->RoutePlanner($_POST['fromStationId'], $UICCode);
+                    $oneRoute = array();
+                    foreach ($allRoutes as $route) {
+                        $stringRidePrice = substr_replace($route['productFare']['priceInCents'], ',', -2, 0);
+                        array_push($oneRoute, [
+                            'departFrom' => $route['legs'][0]['origin']['name'],
+                            'transfers' => $route['legs'],
+                            'totalPrice' => $stringRidePrice,
+                        ]);
                     }
+                    return view('routePlanner')->with(['fromStationCode' => $_POST['fromStationId'], 'toStationCode' => $UICCode, 'allRoutes' => $oneRoute], compact('newDt'));
+                } else {
+                    return Redirect()->route('home')->withErrors('je bent al op dit station');
                 }
-                return view('routePlanner')->with(['fromStationCode' => $_POST['fromStationId'], 'toStationCode' => $UICCode, 'allRoutes' => $oneRoute], compact('newDt'));
             } else {
-                return Redirect::back()->withErrors('Je moet een bestaand station invullen');
+                return Redirect()->route('home')->withErrors('vul een bestaant station in');
             }
         } else {
-            return Redirect::back()->withErrors('Je moet een bestaand station invullen');
+            return Redirect()->route('home')->withErrors('Je moet een bestaand station invullen');
         }
-
     }
 
     public function getUICCode($stationName)
@@ -87,4 +86,9 @@ class DepartureAndArrivalController extends Controller
         $array = json_decode($response->body(), true);
         return $array['trips'];
     }
+
+
+
+
+
 }

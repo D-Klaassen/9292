@@ -49,6 +49,8 @@
         const arrivalList = $('#arrivalList')
         const departureList = $('#departureList')
 
+
+
         $(document).ready(function () {
             $(function () {
                 var params = {
@@ -107,10 +109,6 @@
                     .done(function (data) {
                         let allDepartures = data.payload.departures;
                         displayDepartures(allDepartures)
-                        // $.map(allArrivals, function(i) {
-                        //     console.log(i.name)
-                        //     $('#arrivalList').append('<li>' + i + '</li>')
-                        // });
                     })
                     .fail(function () {
                         alert("er is iets fout gegaan");

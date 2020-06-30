@@ -4,6 +4,8 @@
 <body>
 @include('includes.header')
 <main>
+
+    @include('includes.error')
     @yield('content')
 </main>
 </body>

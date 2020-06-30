@@ -1,10 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-    @if($errors->any())
-        <h4>{{$errors->first()}}</h4>
-    @endif
-
     <div class="content">
         <div class="search-container">
             <form autocomplete="off" id="stationList" action="{{ route('DeparturesAndArrivals') }}"
